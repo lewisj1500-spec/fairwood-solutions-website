@@ -1,0 +1,43 @@
+● Here's everything you'd need to drop it into another project:
+
+  ---
+  1. npm packages required                                                                                                                                                                                                                                                                                                     framer-motion
+  lucide-react                                                                                                                                                                                                                                                                                                               
+  2. The component file — EPCRating.tsx
+
+  Paste the full contents of D:\Desktop\Website messaround\src\components\EPCRating.tsx — that's the entire self-contained component.
+
+  3. CSS dependencies — these classes from globals.css need to exist in the target project:
+
+  /* Glassmorphism card */
+  .glass-card {
+    background: rgba(10, 26, 12, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 230, 118, 0.1);
+    border-radius: 20px;
+  }
+
+  /* Section helpers */
+  .section-tag { /* your tag pill style */ }
+  .section-title { /* your heading style */ }
+  .section-sub { /* your subtitle style */ }
+
+  /* Button */
+  .btn { /* base button */ }
+  .btn-primary { background: #00e676; color: #030804; }
+  .btn-primary:hover { background: #69f0ae; }
+
+  4. CSS variables the component references:
+  :root {
+    --primary: #00e676;
+    --text-1: #e8f5e9;
+    --text-2: #81c784;
+    --text-3: #4a7a4d;
+  }
+
+  5. In another chat, just say:
+
+  ▎ "I have framer-motion and lucide-react installed. Here is an EPCRating component I want to add — [paste the file]. The target project uses Tailwind CSS. Add the required CSS classes and drop the component into the page."
+
+  That's all the other chat needs. The component itself is fully self-contained — all the rating data, colours, and logic live inside the one file.

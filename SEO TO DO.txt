@@ -1,0 +1,36 @@
+ Both files created. Your SEO setup is now complete. Here's a summary of everything implemented:
+
+  SEO checklist — all done:                                                                                                                                                                                                                                                                                                  
+  ┌──────────────────────────────┬────────┐                                                                                                                                                                                                                                                                                    │             Item             │ Status │
+  ├──────────────────────────────┼────────┤
+  │ <title> with template        │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ <meta description>           │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ Canonical URL                │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ OpenGraph tags               │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ Twitter Card tags            │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ robots meta                  │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ Geo meta tags                │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ lang="en-GB"                 │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ JSON-LD LocalBusiness schema │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ robots.txt                   │ Done   │
+  ├──────────────────────────────┼────────┤
+  │ sitemap.xml                  │ Done   │
+  └──────────────────────────────┴────────┘
+
+  Still to do (needs external action from you):
+
+  1. OG image — create a 1200×630px branded image and save it as public/og-image.jpg. This appears in social shares/link previews.
+  2. Google Search Console — once live, verify your site there and submit the sitemap URL (https://fairwoodsolutions.com/sitemap.xml). Then add the verification code to the commented line in layout.tsx.
+  3. Google Business Profile — create/claim a free listing at business.google.com — this is the single biggest driver of local search visibility for a surveying business.
+  4. sameAs links — as you build profiles (LinkedIn, Yell, Checkatrade etc.) add their URLs to the sameAs array in JsonLd.tsx.
+
+  After making any changes, run npm run build again to regenerate the out/ folder before uploading to your host.
