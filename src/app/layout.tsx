@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import JsonLd from "@/components/JsonLd";
 import ScrollProgress from "@/components/ScrollProgress";
+import Preloader from "@/components/Preloader";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -101,7 +102,8 @@ export default function RootLayout({
     <html lang="en-GB">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
         <meta name="geo.region" content="GB-CMN" />
         <meta name="geo.placename" content="Carmarthen, Wales" />
         <meta name="geo.position" content="51.8286825;-4.343122" />
@@ -110,6 +112,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${inter.variable} font-body bg-[#030804] text-[#e8f5e9] antialiased`}
       >
+        <Preloader />
         <ScrollProgress />
         <JsonLd />
         <SmoothScroll>{children}</SmoothScroll>
