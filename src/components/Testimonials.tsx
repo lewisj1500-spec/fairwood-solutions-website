@@ -5,44 +5,44 @@ import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    initials: "SJ",
-    name: "Sarah Johnson",
-    role: "Homeowner, Carmarthen",
+    initials: "N",
+    name: "Natalie",
+    role: "Google Review",
     stars: 5,
-    tag: "Domestic EPC",
+    tag: "Google Review",
     tagColor: "#00e676",
     quote:
-      "The assessor arrived on time, completed the survey in under an hour, and I had my EPC certificate in my inbox by 4pm the same day. Incredible service — and the advice on improving our rating was genuinely useful.",
+      "I'm very pleased with the service I received from Fairwood Solutions. Lloyd has been helpful, easy to deal with and provided the survey report very promptly.",
   },
   {
-    initials: "MD",
-    name: "Mark Davies",
-    role: "Landlord Portfolio, Llanelli",
+    initials: "J",
+    name: "Jack",
+    role: "Google Review",
     stars: 5,
-    tag: "MEES Compliance",
+    tag: "Google Review",
     tagColor: "#00bcd4",
     quote:
-      "I have 14 rental properties and Fairwood Solutions handled all of them efficiently. They identified which properties were at risk under MEES regulations and gave me a clear, costed plan to bring them all up to E rating. Invaluable.",
+      "Great price, Lloyd was extremely helpful and professional!",
   },
   {
-    initials: "EP",
-    name: "Emma Price",
-    role: "Estate Agent, Pembrokeshire",
+    initials: "B",
+    name: "Bev",
+    role: "Verified Review",
     stars: 5,
-    tag: "Fast Turnaround",
+    tag: "Verified Review",
     tagColor: "#69f0ae",
     quote:
-      "As an estate agent, I need EPCs fast and reliably. Fairwood consistently delivers within 24 hours — often same day. My clients love the detailed certificates and the team's professional approach. My first call every time.",
+      "Very efficient. Kept in touch throughout process. Very detailed survey report provided within 2 days of visit.",
   },
   {
-    initials: "RT",
-    name: "Rhodri Thomas",
-    role: "Property Developer, Swansea",
+    initials: "L",
+    name: "Louise",
+    role: "Verified Review",
     stars: 5,
-    tag: "New Build SAP",
+    tag: "Verified Review",
     tagColor: "#ff9500",
     quote:
-      "We use Fairwood for all our SAP calculations and new build EPCs. Their technical knowledge is excellent and they understand the planning and building regulations requirements perfectly. Turnaround always meets our project timelines.",
+      "Fast moving and very efficient, received report day after the survey was completed. Easy to deal with.",
   },
 ];
 
@@ -63,7 +63,7 @@ export default function Testimonials() {
 
   useEffect(() => {
     if (isPaused) return;
-    const t = setInterval(next, 5500);
+    const t = setInterval(() => { if (!document.hidden) next(); }, 5500);
     return () => clearInterval(t);
   }, [isPaused, next, current]);
 
@@ -96,8 +96,8 @@ export default function Testimonials() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Card */}
-          <div className="relative overflow-hidden rounded-3xl border border-[#00e676]/10 bg-[#0a1a0c] p-8 md:p-12 min-h-[280px]">
+          {/* Card — fixed height so surrounding sections never shift */}
+          <div className="relative overflow-hidden rounded-3xl border border-[#00e676]/10 bg-[#0a1a0c] h-[340px]">
             {/* Background glow */}
             <div
               className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-[0.04]"
@@ -114,6 +114,7 @@ export default function Testimonials() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 p-8 md:p-12 flex flex-col"
               >
                 {/* Tag */}
                 <div className="mb-5">
@@ -136,7 +137,7 @@ export default function Testimonials() {
                   &ldquo;{t.quote}&rdquo;
                 </p>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mt-auto">
                   <div
                     className="w-11 h-11 rounded-full flex items-center justify-center font-head font-bold text-sm flex-shrink-0"
                     style={{ background: "linear-gradient(135deg, #00e676, #00bcd4)", color: "#030804" }}

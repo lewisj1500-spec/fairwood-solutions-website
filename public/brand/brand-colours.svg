@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 180" fill="none">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&amp;display=swap');</style>
+  </defs>
+
+  <rect width="560" height="180" rx="16" fill="#071009"/>
+
+  <!-- Title -->
+  <text x="28" y="36" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="3" fill="#4a7a4d">FAIRWOOD SOLUTIONS — BRAND COLOURS</text>
+
+  <!-- Swatch 1: Primary Green -->
+  <rect x="28" y="52" width="88" height="88" rx="12" fill="#00e676"/>
+  <text x="72" y="156" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" fill="#e8f5e9">Primary</text>
+  <text x="72" y="170" text-anchor="middle" font-family="monospace, Arial, sans-serif" font-size="10" fill="#4a7a4d">#00e676</text>
+
+  <!-- Swatch 2: Primary Light -->
+  <rect x="132" y="52" width="88" height="88" rx="12" fill="#69f0ae"/>
+  <text x="176" y="156" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" fill="#e8f5e9">Primary Light</text>
+  <text x="176" y="170" text-anchor="middle" font-family="monospace, Arial, sans-serif" font-size="10" fill="#4a7a4d">#69f0ae</text>
+
+  <!-- Swatch 3: Background -->
+  <rect x="236" y="52" width="88" height="88" rx="12" fill="#030804" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="280" y="156" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" fill="#e8f5e9">Background</text>
+  <text x="280" y="170" text-anchor="middle" font-family="monospace, Arial, sans-serif" font-size="10" fill="#4a7a4d">#030804</text>
+
+  <!-- Swatch 4: Text Primary -->
+  <rect x="340" y="52" width="88" height="88" rx="12" fill="#e8f5e9"/>
+  <text x="384" y="156" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" fill="#e8f5e9">Text</text>
+  <text x="384" y="170" text-anchor="middle" font-family="monospace, Arial, sans-serif" font-size="10" fill="#4a7a4d">#e8f5e9</text>
+
+  <!-- Swatch 5: Accent Cyan -->
+  <rect x="444" y="52" width="88" height="88" rx="12" fill="#00bcd4"/>
+  <text x="488" y="156" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="11" font-weight="600" fill="#e8f5e9">Accent</text>
+  <text x="488" y="170" text-anchor="middle" font-family="monospace, Arial, sans-serif" font-size="10" fill="#4a7a4d">#00bcd4</text>
+</svg>

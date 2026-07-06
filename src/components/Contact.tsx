@@ -1,16 +1,38 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Phone, MapPin, Clock, Send, Zap } from "lucide-react";
+import { Phone, MapPin, Clock, Send, Zap, AlertCircle } from "lucide-react";
 
 export default function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending]     = useState(false);
+  const [error, setError]         = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    (e.target as HTMLFormElement).reset();
+    if (!formRef.current) return;
+    setSending(true);
+    setError(null);
+    try {
+      const params = new URLSearchParams();
+      new FormData(formRef.current).forEach((value, key) => {
+        params.append(key, value.toString());
+      });
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+      formRef.current.reset();
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch {
+      setError("Something went wrong — please try calling us directly or try again.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -86,7 +108,7 @@ export default function Contact() {
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-3">
-              {["Gov. Accredited", "National Register", "24hr Delivery", "MEES Compliant"].map((badge) => (
+              {["Gov. Accredited", "National Register", "Typically 24hrs", "MEES Compliant"].map((badge) => (
                 <span key={badge} className="flex items-center gap-1.5 text-[10px] font-head font-semibold uppercase tracking-wider text-[#00e676] px-3 py-1.5 rounded-full border border-[#00e676]/20 bg-[#00e676]/05">
                   <Zap size={10} fill="currentColor" />
                   {badge}
@@ -121,7 +143,16 @@ export default function Contact() {
                   <p className="text-[#81c784] text-sm max-w-[280px]">We&apos;ll confirm your assessment slot within a few hours. Check your inbox!</p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit}
+                  name="contact"
+                  data-netlify="true"
+                  className="flex flex-col gap-5"
+                >
+                  {/* Required by Netlify to identify the form on AJAX submissions */}
+                  <input type="hidden" name="form-name" value="contact" />
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[
                       { id: "firstName", label: "First Name", placeholder: "John", type: "text" },
@@ -137,7 +168,7 @@ export default function Contact() {
                           type={f.type}
                           placeholder={f.placeholder}
                           required
-                          className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3 text-[#e8f5e9] text-sm placeholder:text-[#4a7a4d] outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all"
+                          className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3.5 text-[#e8f5e9] text-sm placeholder:text-[#4a7a4d] outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all"
                         />
                       </div>
                     ))}
@@ -157,7 +188,7 @@ export default function Contact() {
                         type={f.type}
                         placeholder={f.placeholder}
                         required={f.type === "email"}
-                        className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3 text-[#e8f5e9] text-sm placeholder:text-[#4a7a4d] outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all"
+                        className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3.5 text-[#e8f5e9] text-sm placeholder:text-[#4a7a4d] outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all"
                       />
                     </div>
                   ))}
@@ -169,7 +200,7 @@ export default function Contact() {
                     <select
                       id="service"
                       name="service"
-                      className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3 text-[#e8f5e9] text-sm outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all appearance-none cursor-pointer"
+                      className="bg-[#030804] border border-[#00e676]/[0.09] rounded-xl px-4 py-3.5 text-[#e8f5e9] text-sm outline-none focus:border-[#00e676]/40 focus:ring-2 focus:ring-[#00e676]/08 transition-all appearance-none cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a7a4d' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
@@ -199,15 +230,32 @@ export default function Contact() {
                     />
                   </div>
 
+                  {error && (
+                    <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl border border-red-500/20 bg-red-500/06 text-red-400 text-sm">
+                      <AlertCircle size={15} className="flex-shrink-0 mt-0.5" />
+                      {error}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="btn btn-primary justify-center w-full mt-1 group"
+                    disabled={sending}
+                    className="btn btn-primary justify-center w-full mt-1 group disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    <Zap size={16} fill="currentColor" />
-                    Book My EPC Assessment
-                    <svg className="btn-arrow" viewBox="0 0 24 24">
-                      <path d="M7 17L17 7M17 7H7M17 7v10" />
-                    </svg>
+                    {sending ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-[#030804]/30 border-t-[#030804] rounded-full animate-spin" />
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Zap size={16} fill="currentColor" />
+                        Book My EPC Assessment
+                        <svg className="btn-arrow" viewBox="0 0 24 24">
+                          <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg>
+                      </>
+                    )}
                   </button>
                 </form>
               )}

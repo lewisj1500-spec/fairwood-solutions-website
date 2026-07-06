@@ -56,7 +56,7 @@ export default function CoverageMap() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           className="relative rounded-3xl overflow-hidden border border-[#00e676]/[0.08]"
-          style={{ boxShadow: "0 0 0 1px rgba(0,230,118,0.05), 0 30px 80px rgba(0,0,0,0.5)" }}
+          style={{ boxShadow: "0 0 0 1px rgba(0,230,118,0.05), 0 30px 80px rgba(0,0,0,0.5)", isolation: "isolate" }}
         >
           <div className="h-[480px] md:h-[560px]">
             <MapClient />

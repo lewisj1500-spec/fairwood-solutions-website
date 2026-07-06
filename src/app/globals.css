@@ -294,6 +294,46 @@ body {
   100% { transform: translateY(-100px) translateX(6px)   scale(0.5);  opacity: 0;    }
 }
 
+/* ── WhyChooseUs cards — CSS hover avoids JS reflow ── */
+.why-card {
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.why-card:hover {
+  border-color: var(--c-border) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--c-shadow) !important;
+}
+
+/* ── Mobile: touch-action speeds up tap response (removes 300ms delay) ── */
+@media (hover: none) {
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Reduce expensive backdrop-blur on mobile GPUs */
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable hover-only transitions that do nothing on touch */
+  .why-card {
+    transition: none;
+  }
+}
+
+/* ── Respect reduced-motion system preference ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .orb {
+    animation: none;
+  }
+}
+
 /* ── Noise texture overlay ── */
 .noise::after {
   content: '';

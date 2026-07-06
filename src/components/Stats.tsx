@@ -62,9 +62,9 @@ const metrics = [
   {
     icon: Award,
     label: "Years Accredited",
-    value: 20,
+    value: 19,
     suffix: "+",
-    delta: "Est. 2004",
+    delta: "Est. 2007",
     desc: "trusted EPC expertise across Wales",
     color: "#ff9500",
     bar: 100,

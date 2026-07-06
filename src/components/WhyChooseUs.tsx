@@ -18,7 +18,7 @@ const reasons = [
     icon: Clock,
     title: 'Fast Turnaround',
     description:
-      'Most EPCs and survey reports delivered within 48 hours of the assessment. No chasing, no delays — just results when you need them.',
+      'Most EPCs and survey reports delivered within 24 hours of the assessment, in the vast majority of cases. No chasing, no delays — just results when you need them.',
     color: '#00bcd4',
     bg: 'rgba(0,188,212,0.08)',
     border: 'rgba(0,188,212,0.18)',
@@ -52,9 +52,9 @@ const reasons = [
   },
   {
     icon: ShieldCheck,
-    title: 'Fully Accredited',
+    title: 'Compliance Made Simple',
     description:
-      'RICS-qualified, Elmhurst Energy accredited, TrustMark registered. Every assessment is covered by full professional indemnity insurance.',
+      'Navigating EPC legislation, MEES regulations, and compliance deadlines can be overwhelming. We guide you through exactly what applies to your property — and what to do about it.',
     color: '#ff6584',
     bg: 'rgba(255,101,132,0.08)',
     border: 'rgba(255,101,132,0.18)',
@@ -92,7 +92,7 @@ export default function WhyChooseUs() {
           className="flex items-center gap-3 mb-4"
         >
           <div className="w-6 h-0.5 rounded-full bg-[#00e676]" />
-          <span className="section-tag" style={{ marginBottom: 0 }}>Why Fairwood EPC</span>
+          <span className="section-tag" style={{ marginBottom: 0 }}> Why Choose Us</span>
         </motion.div>
 
         {/* Header row */}
@@ -127,20 +127,14 @@ export default function WhyChooseUs() {
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.4, 0, 0.2, 1] }}
               whileHover={{ y: -6, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
-              className="group relative overflow-hidden rounded-2xl p-6 lg:p-7 cursor-default transition-all duration-300"
+              className="why-card group relative overflow-hidden rounded-2xl p-6 lg:p-7 cursor-default"
               style={{
                 background: 'rgba(10,26,12,0.6)',
                 backdropFilter: 'blur(20px)',
                 border: '1px solid rgba(0,230,118,0.07)',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.border = `1px solid ${reason.border}`
-                ;(e.currentTarget as HTMLElement).style.boxShadow = `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${reason.bg}`
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.border = '1px solid rgba(0,230,118,0.07)'
-                ;(e.currentTarget as HTMLElement).style.boxShadow = 'none'
-              }}
+                '--c-border': reason.border,
+                '--c-shadow': reason.bg,
+              } as React.CSSProperties}
             >
               {/* Subtle gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a0c]/80 via-transparent to-transparent pointer-events-none" />

@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
+import Credentials from "@/components/Credentials";
 import Services from "@/components/Services";
 import EPCRating from "@/components/EPCRating";
 import About from "@/components/About";
@@ -18,6 +19,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Marquee />
+      <Credentials />
       <Services />
       <EPCRating />
       <About />

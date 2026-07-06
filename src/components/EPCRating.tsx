@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { Zap, TrendingUp, AlertCircle, CheckCircle, Info } from "lucide-react";
 
 const RATINGS = [
@@ -15,6 +15,8 @@ const RATINGS = [
     typical: "New builds, Passivhaus, recently retrofitted homes",
     bills: "~£600/yr",
     co2: "< 1t/yr",
+    adviceTitle: "Top of the scale — nothing above this",
+    adviceBody: "An A is as good as it gets — running costs and carbon are about as low as a home can go. We'll assess, verify and lodge the certificate that proves it.",
   },
   {
     grade: "B",
@@ -27,6 +29,8 @@ const RATINGS = [
     typical: "Recent builds, well-insulated older homes",
     bills: "~£850/yr",
     co2: "~1.5t/yr",
+    adviceTitle: "Excellent — the A band is within reach",
+    adviceBody: "A strong result already. A few targeted upgrades — solar panels, a heat pump, or topping up insulation — could be enough to tip you into the top band.",
   },
   {
     grade: "C",
@@ -39,6 +43,8 @@ const RATINGS = [
     typical: "Post-2000 builds, upgraded older properties",
     bills: "~£1,200/yr",
     co2: "~2.5t/yr",
+    adviceTitle: "Good — a solid, sellable rating",
+    adviceBody: "Comfortably above the UK average and attractive to buyers and tenants. A handful of cost-effective measures could lift you to a B.",
   },
   {
     grade: "D",
@@ -52,6 +58,8 @@ const RATINGS = [
     bills: "~£1,800/yr",
     co2: "~3.8t/yr",
     textDark: true,
+    adviceTitle: "The UK average — clear room to improve",
+    adviceBody: "Most British homes sit here. Better insulation, heating controls or glazing typically move a D up a band or two, cutting your bills noticeably.",
   },
   {
     grade: "E",
@@ -64,6 +72,8 @@ const RATINGS = [
     typical: "Pre-1970s homes, solid wall properties",
     bills: "~£2,500/yr",
     co2: "~5.2t/yr",
+    adviceTitle: "The legal minimum for letting — don't cut it fine",
+    adviceBody: "You can still let at an E, but you're one slip from non-compliance. We'll pinpoint the cheapest measures to build a safe margin above the threshold.",
   },
   {
     grade: "F",
@@ -76,6 +86,8 @@ const RATINGS = [
     typical: "Pre-war construction, uninsulated solid walls",
     bills: "~£3,400/yr",
     co2: "~7t/yr",
+    adviceTitle: "Below the legal standard — action needed",
+    adviceBody: "An F can't be let without a registered exemption, and the bills are steep. We'll identify the improvements that bring you back into compliance fastest.",
   },
   {
     grade: "G",
@@ -88,16 +100,48 @@ const RATINGS = [
     typical: "Derelict or substantially unimproved properties",
     bills: "£4,500+/yr",
     co2: "~10t+/yr",
+    adviceTitle: "The lowest band — urgent improvement",
+    adviceBody: "Bills are very high and letting is unlawful without an exemption. A G usually needs meaningful upgrade work — we'll map out a clear, prioritised plan to lift it.",
   },
 ];
 
 export default function EPCRating() {
   const [selected, setSelected] = useState<number | null>(2);
+  const [isPaused, setIsPaused] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isInView = useInView(sectionRef, { amount: 0.3 });
+  const reduceMotion = useReducedMotion();
 
   const selectedRating = selected !== null ? RATINGS[selected] : null;
 
+  // Auto-cycle A → G while the section is on screen and the user isn't interacting.
+  useEffect(() => {
+    if (isPaused || !isInView || reduceMotion) return;
+    const id = setInterval(() => {
+      if (!document.hidden) {
+        setSelected((prev) => (prev === null ? 0 : (prev + 1) % RATINGS.length));
+      }
+    }, 4000);
+    return () => clearInterval(id);
+  }, [isPaused, isInView, reduceMotion]);
+
+  useEffect(() => () => { if (resumeTimer.current) clearTimeout(resumeTimer.current); }, []);
+
+  // Clicking a band jumps to it and pauses the cycle briefly so it can be read,
+  // then auto-resumes. Hovering does NOT pause — the cycle keeps running.
+  const selectBand = (i: number) => {
+    setSelected(i);
+    setIsPaused(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setIsPaused(false), 9000);
+  };
+
   return (
-    <section className="bg-[#030804] py-24 md:py-32 overflow-hidden relative border-t border-[#00e676]/[0.06]">
+    <section
+      ref={sectionRef}
+      className="bg-[#030804] py-16 md:py-32 overflow-hidden relative border-t border-[#00e676]/[0.06]"
+    >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.03]"
@@ -112,7 +156,7 @@ export default function EPCRating() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="section-tag">EPC Explained</span>
           <h2 className="section-title">
@@ -120,11 +164,11 @@ export default function EPCRating() {
             <span className="text-[#00e676]">Energy Rating</span>
           </h2>
           <p className="section-sub mx-auto text-center">
-            Click any rating band to learn what it means for your property, your bills, and the planet.
+            Watch the bands cycle — or click any one to explore what it means for your property, your bills, and the planet.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-6 lg:gap-8 items-start">
 
           {/* Left: Rating chart */}
           <motion.div
@@ -132,7 +176,7 @@ export default function EPCRating() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="glass-card p-6 rounded-3xl border border-[#00e676]/10 sticky top-24"
+            className="glass-card p-4 md:p-6 rounded-3xl border border-[#00e676]/10 lg:sticky lg:top-24"
           >
             <div className="flex items-center justify-between mb-5">
               <div>
@@ -142,11 +186,57 @@ export default function EPCRating() {
               <Info size={16} className="text-[#4a7a4d]" />
             </div>
 
-            <div className="flex flex-col gap-2">
+            {/* Mobile: compact horizontal grade chips */}
+            <div className="flex lg:hidden gap-1.5">
+              {RATINGS.map((rating, i) => {
+                const isSel = selected === i;
+                return (
+                  <button
+                    key={rating.grade}
+                    onClick={() => selectBand(i)}
+                    aria-label={`Rating ${rating.grade}`}
+                    aria-pressed={isSel}
+                    className="flex-1 aspect-square rounded-lg flex items-center justify-center font-head font-black text-base transition-all duration-200 active:scale-95"
+                    style={{
+                      background: isSel ? rating.color : rating.color + "1f",
+                      color: isSel ? (rating.textDark ? "#1a2a1a" : "#fff") : rating.color,
+                      border: `1px solid ${isSel ? rating.color : rating.color + "33"}`,
+                      boxShadow: isSel ? `0 0 16px ${rating.color}55` : "none",
+                    }}
+                  >
+                    {rating.grade}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Mobile: active band's coloured bar with score */}
+            {selectedRating && (
+              <div className="flex lg:hidden mt-3 h-8 bg-[#071009] rounded-lg overflow-hidden">
+                <motion.div
+                  key={selectedRating.grade}
+                  className="h-full rounded-lg flex items-center justify-end pr-3 min-w-[2.75rem]"
+                  style={{ backgroundColor: selectedRating.color }}
+                  initial={{ width: 0 }}
+                  animate={{ width: selectedRating.barWidth }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <span
+                    className="text-[11px] font-head font-bold whitespace-nowrap"
+                    style={{ color: selectedRating.textDark ? "#1a2a1a" : "rgba(255,255,255,0.95)" }}
+                  >
+                    {selectedRating.range}
+                  </span>
+                </motion.div>
+              </div>
+            )}
+
+            {/* Desktop: full bar chart */}
+            <div className="hidden lg:flex lg:flex-col gap-2">
               {RATINGS.map((rating, i) => (
                 <motion.button
                   key={rating.grade}
-                  onClick={() => setSelected(selected === i ? null : i)}
+                  onClick={() => selectBand(i)}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -157,7 +247,7 @@ export default function EPCRating() {
                     selected === i ? "ring-1 ring-inset" : "hover:bg-white/[0.02]"
                   }`}
                 >
-                  <div className="flex items-center gap-3 w-full p-2.5 rounded-xl" style={selected === i ? { background: rating.bgColor } : {}}>
+                  <div className="flex items-center gap-3 w-full p-2 md:p-2.5 rounded-xl" style={selected === i ? { background: rating.bgColor } : {}}>
                     {/* Grade box */}
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center font-head font-black text-lg flex-shrink-0 transition-all duration-300"
@@ -171,7 +261,7 @@ export default function EPCRating() {
                     </div>
 
                     {/* Bar */}
-                    <div className="flex-1 h-7 bg-[#071009] rounded-md overflow-hidden">
+                    <div className="flex-1 h-6 md:h-7 bg-[#071009] rounded-md overflow-hidden">
                       <motion.div
                         className="h-full rounded-md flex items-center justify-end pr-3"
                         style={{ backgroundColor: rating.color }}
@@ -217,16 +307,16 @@ export default function EPCRating() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -20, scale: 0.98 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="glass-card p-8 md:p-10 rounded-3xl border"
+                  className="glass-card p-5 md:p-10 rounded-3xl border"
                   style={{ borderColor: selectedRating.color + "25" }}
                 >
                   {/* Grade header */}
-                  <div className="flex items-start gap-6 mb-8">
+                  <div className="flex items-start gap-4 md:gap-6 mb-6 md:mb-8">
                     <motion.div
                       initial={{ scale: 0, rotate: -10 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
-                      className="w-20 h-20 rounded-2xl flex items-center justify-center font-head font-black text-5xl flex-shrink-0"
+                      className="hidden md:flex w-16 h-16 md:w-20 md:h-20 rounded-2xl items-center justify-center font-head font-black text-4xl md:text-5xl flex-shrink-0"
                       style={{
                         background: selectedRating.color,
                         color: selectedRating.textDark ? "#1a2a1a" : "white",
@@ -244,52 +334,50 @@ export default function EPCRating() {
                           {selectedRating.label}
                         </span>
                       </div>
-                      <h3 className="font-head text-3xl font-bold text-[#e8f5e9] tracking-tight">
+                      <h3 className="font-head text-2xl md:text-3xl font-bold text-[#e8f5e9] tracking-tight">
                         Rating {selectedRating.grade} — {selectedRating.range} pts
                       </h3>
-                      <p className="text-[#81c784] mt-2 leading-relaxed">
+                      <p className="text-[#81c784] text-sm md:text-base mt-2 leading-relaxed">
                         {selectedRating.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Data grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-4 mb-6 md:mb-8">
                     {[
-                      { label: "Typical Property", value: selectedRating.typical, icon: "🏠" },
-                      { label: "Est. Annual Bills", value: selectedRating.bills, icon: "💷" },
-                      { label: "CO₂ Emissions", value: selectedRating.co2, icon: "🌿" },
+                      { label: "Typical Property", value: selectedRating.typical, icon: "🏠", cls: "hidden md:block" },
+                      { label: "Est. Annual Bills", value: selectedRating.bills, icon: "💷", cls: "" },
+                      { label: "CO₂ Emissions", value: selectedRating.co2, icon: "🌿", cls: "" },
                     ].map((item) => (
-                      <div key={item.label} className="rounded-2xl p-4" style={{ background: selectedRating.bgColor, border: `1px solid ${selectedRating.color}15` }}>
-                        <p className="text-lg mb-1">{item.icon}</p>
+                      <div key={item.label} className={`rounded-2xl p-3 md:p-4 ${item.cls}`} style={{ background: selectedRating.bgColor, border: `1px solid ${selectedRating.color}15` }}>
+                        <p className="text-base md:text-lg mb-1">{item.icon}</p>
                         <p className="text-[9px] text-[#4a7a4d] uppercase tracking-wider mb-1">{item.label}</p>
-                        <p className="font-head font-semibold text-[#e8f5e9] text-sm leading-snug">{item.value}</p>
+                        <p className="font-head font-semibold text-[#e8f5e9] text-[13px] md:text-sm leading-snug">{item.value}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* CTA based on rating */}
-                  <div className="rounded-2xl border border-[#00e676]/12 p-5 bg-[#00e676]/03 flex items-start gap-4">
-                    <div className="w-9 h-9 rounded-xl bg-[#00e676]/10 border border-[#00e676]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      {selectedRating.grade <= "C" ? (
-                        <CheckCircle size={16} className="text-[#00e676]" />
-                      ) : (
-                        <TrendingUp size={16} className="text-[#00e676]" />
-                      )}
+                  <div className="rounded-2xl border border-[#00e676]/12 p-4 md:p-5 bg-[#00e676]/03 flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex items-start gap-3 flex-1">
+                      <div className="w-9 h-9 rounded-xl bg-[#00e676]/10 border border-[#00e676]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        {selectedRating.grade <= "C" ? (
+                          <CheckCircle size={16} className="text-[#00e676]" />
+                        ) : (
+                          <TrendingUp size={16} className="text-[#00e676]" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-head font-semibold text-[#e8f5e9] text-sm mb-1">
+                          {selectedRating.adviceTitle}
+                        </p>
+                        <p className="text-xs text-[#81c784] leading-relaxed">
+                          {selectedRating.adviceBody}
+                        </p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-head font-semibold text-[#e8f5e9] text-sm mb-1">
-                        {selectedRating.grade <= "C"
-                          ? "Great efficiency — maintain it"
-                          : "Improvement potential identified"}
-                      </p>
-                      <p className="text-xs text-[#81c784] leading-relaxed">
-                        {selectedRating.grade <= "C"
-                          ? "Your property is performing well. Our assessors can identify any remaining opportunities to reach the A band."
-                          : `Properties at ${selectedRating.grade} rating often benefit from insulation upgrades, heating improvements, or renewable energy. We'll advise you on the best investments.`}
-                      </p>
-                    </div>
-                    <a href="#contact" className="btn btn-primary text-sm py-2 px-5 whitespace-nowrap">
+                    <a href="#contact" className="btn btn-primary text-sm py-2 px-5 whitespace-nowrap w-full sm:w-auto justify-center">
                       Get Assessed
                     </a>
                   </div>
@@ -314,7 +402,7 @@ export default function EPCRating() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4"
+              className="mt-6 hidden md:grid grid-cols-1 sm:grid-cols-2 gap-4"
             >
               <div className="glass-card p-5 rounded-2xl border border-[#00e676]/08">
                 <div className="flex items-center gap-3 mb-2">

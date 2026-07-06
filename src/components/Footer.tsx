@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Phone, MapPin, Clock, Zap } from "lucide-react";
 
 const services = [
@@ -29,7 +30,7 @@ export default function Footer() {
                 <Zap size={16} className="text-[#030804]" fill="currentColor" />
               </div>
               <span className="font-head font-semibold text-[16px] text-[#e8f5e9]">
-                Fairwood <span className="text-[#00e676]">Energy</span>
+                Fairwood <span className="text-[#00e676]">Solutions</span>
               </span>
             </a>
             <p className="text-[#4a7a4d] text-sm leading-relaxed max-w-[240px] mb-5">
@@ -40,7 +41,7 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="LinkedIn"
-                className="w-8 h-8 rounded-lg border border-[#00e676]/[0.1] flex items-center justify-center text-[#4a7a4d] hover:text-[#00e676] hover:border-[#00e676]/30 transition-all"
+                className="w-11 h-11 rounded-lg border border-[#00e676]/[0.1] flex items-center justify-center text-[#4a7a4d] hover:text-[#00e676] hover:border-[#00e676]/30 transition-all"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                   <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
@@ -118,17 +119,23 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Company disclosure */}
+        <p className="text-[#3d6640] text-[11px] leading-relaxed pt-7 max-w-3xl">
+          Fairwood Solutions is a trading name of Fairwood Residential Estates Ltd, registered in England &amp; Wales, company number 06116143. Registered office: Prenteg, Heol Smyrna, Llangain, Carmarthen, SA33 5AD.
+        </p>
+
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-7">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-5">
           <p className="text-[#4a7a4d] text-xs">
-            © {new Date().getFullYear()} Fairwood Solutions Ltd. All rights reserved. Government Accredited EPC Assessors.
+            © {new Date().getFullYear()} Fairwood Solutions. All rights reserved. Government-accredited EPC assessors.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Service"].map((l) => (
-              <a key={l} href="#" className="text-[#4a7a4d] text-xs hover:text-[#00e676] transition-colors">
-                {l}
-              </a>
-            ))}
+            <Link href="/privacy-policy" className="text-[#4a7a4d] text-xs hover:text-[#00e676] transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-[#4a7a4d] text-xs hover:text-[#00e676] transition-colors">
+              Terms &amp; Conditions
+            </Link>
           </div>
         </div>
       </div>

@@ -17,18 +17,18 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://fairwoodenergy.com";
+const SITE_URL = "https://fairwoodsolutions.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "Fairwood Solutions | EPC Assessors in Wales — Fast 24hr Certificates",
+    default: "Fairwood Solutions | EPC Assessors in Wales — Certificates Typically in 24hrs",
     template: "%s | Fairwood Solutions",
   },
 
   description:
-    "Government-accredited EPC assessors based in Carmarthen. Fast, accurate Energy Performance Certificates for domestic and commercial properties across Wales and the South West. 24-hour turnaround. Call +44 1267 241 291.",
+    "Government-accredited EPC assessors based in Carmarthen. Fast, accurate Energy Performance Certificates for domestic and commercial properties across Wales and the South West. Certificates typically issued within 24 hours of assessment. Call +44 1267 241 291.",
 
   keywords: [
     "EPC certificate Wales",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "EPC assessor Carmarthenshire",
     "energy performance certificate Swansea",
     "DEA accredited assessor Wales",
-    "EPC certificate 24 hours Wales",
+    "EPC certificate fast turnaround Wales",
     "EPC Pembrokeshire",
     "EPC Ceredigion",
     "Fairwood Solutions",
@@ -58,13 +58,13 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: "Fairwood Solutions",
-    title: "Fairwood Solutions | EPC Assessors in Wales — Fast 24hr Certificates",
+    title: "Fairwood Solutions | EPC Assessors in Wales — Certificates Typically in 24hrs",
     description:
-      "Government-accredited EPC assessors. Fast, accurate Energy Performance Certificates for domestic and commercial properties across Wales. 24-hour turnaround.",
+      "Government-accredited EPC assessors. Fast, accurate Energy Performance Certificates for domestic and commercial properties across Wales. Certificates typically issued within 24 hours of assessment.",
     locale: "en_GB",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "Fairwood Solutions — EPC Assessors in Wales",
@@ -76,8 +76,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fairwood Solutions | EPC Assessors in Wales",
     description:
-      "Government-accredited EPC assessors. Fast, accurate Energy Performance Certificates across Wales. 24-hour turnaround.",
-    images: ["/og-image.jpg"],
+      "Government-accredited EPC assessors. Fast, accurate Energy Performance Certificates across Wales. Certificates typically issued within 24 hours of assessment.",
+    images: ["/og-image.svg"],
   },
 
   robots: {
@@ -100,6 +100,7 @@ export default function RootLayout({
   return (
     <html lang="en-GB">
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="geo.region" content="GB-CMN" />
         <meta name="geo.placename" content="Carmarthen, Wales" />

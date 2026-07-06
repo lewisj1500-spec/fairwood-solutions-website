@@ -33,6 +33,35 @@ const steps = [
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 48, scale: 0.95, filter: "blur(6px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.75,
+      ease: [0.22, 1, 0.36, 1],
+      delay: i * 0.14,
+    },
+  }),
+};
+
+const iconVariants = {
+  hidden: { scale: 0.6, opacity: 0 },
+  visible: (i: number) => ({
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 260,
+      damping: 18,
+      delay: i * 0.14 + 0.25,
+    },
+  }),
+};
+
 export default function Process() {
   return (
     <section id="process" className="bg-[#071009] border-t border-[#00e676]/[0.06] py-24 md:py-32 overflow-hidden">
@@ -54,34 +83,23 @@ export default function Process() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-[52px] left-[12.5%] right-[12.5%] h-px">
-            <motion.div
-              className="h-full"
-              style={{ background: "linear-gradient(to right, transparent, rgba(0,230,118,0.2), transparent)" }}
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-            />
-          </div>
-
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
               <motion.div
                 key={step.num}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                custom={i}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.12 }}
                 className="relative flex flex-col gap-5 group"
               >
                 {/* Step number + icon */}
                 <div className="relative flex items-center gap-3">
                   {/* Large ghost number */}
                   <span
-                    className="font-head text-[80px] font-black leading-none select-none absolute -top-3 -left-2 opacity-[0.06]"
+                    className="font-head text-[80px] font-black leading-none select-none absolute -top-3 -left-2 opacity-[0.06] group-hover:opacity-[0.1] transition-opacity duration-500"
                     style={{ color: step.color }}
                   >
                     {step.num}
@@ -89,9 +107,14 @@ export default function Process() {
 
                   {/* Icon circle */}
                   <motion.div
-                    whileHover={{ scale: 1.1, boxShadow: `0 0 30px ${step.color}40` }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300"
+                    custom={i}
+                    variants={iconVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.12, boxShadow: `0 0 28px ${step.color}50` }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center"
                     style={{
                       background: step.color + "12",
                       border: `1px solid ${step.color}25`,
@@ -101,12 +124,16 @@ export default function Process() {
                   </motion.div>
 
                   {/* Step badge */}
-                  <span
+                  <motion.span
+                    initial={{ opacity: 0, x: -8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.14 + 0.35 }}
                     className="text-[10px] font-head font-bold uppercase tracking-[0.2em] px-2.5 py-1 rounded-full relative z-10"
                     style={{ color: step.color, background: step.color + "10", border: `1px solid ${step.color}20` }}
                   >
                     Step {step.num}
-                  </span>
+                  </motion.span>
                 </div>
 
                 <div className="relative z-10">
@@ -116,9 +143,15 @@ export default function Process() {
                   <p className="text-[#81c784] text-sm leading-relaxed">{step.desc}</p>
                 </div>
 
-                {/* Animated line on left (mobile) */}
+                {/* Mobile connector */}
                 {i < steps.length - 1 && (
-                  <div className="md:hidden w-px h-8 bg-gradient-to-b from-[#00e676]/20 to-transparent ml-7" />
+                  <motion.div
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.14 + 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="md:hidden w-px h-8 bg-gradient-to-b from-[#00e676]/20 to-transparent ml-7 origin-top"
+                  />
                 )}
               </motion.div>
             );

@@ -11,7 +11,7 @@ interface TypingEffectProps {
 }
 
 export function TypingEffect({
-  texts = ["Building Surveys", "Homebuyer Reports", "Property Valuations"],
+  texts = ["EPC Assessments", "Energy Ratings", "Building Surveys", "Homebuyer Reports"],
   className,
   rotationInterval = 2800,
   typingSpeed = 70,
@@ -45,16 +45,16 @@ export function TypingEffect({
     <div
       ref={containerRef}
       className={cn(
-        "relative inline-flex items-center justify-start text-left font-head font-bold text-primary",
+        "relative inline font-head font-bold text-[#00e676]",
         className
       )}
     >
-      {displayedText}
+      {displayedText || "\u00A0"}
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
-        className="ml-1 inline-block h-[0.85em] w-[3px] rounded-sm bg-primary align-middle"
+        className="ml-1 inline-block h-[0.85em] w-[3px] rounded-sm bg-[#00e676] align-middle"
       />
     </div>
   );

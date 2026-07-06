@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "How quickly will I receive my EPC certificate?",
-    a: "We aim to deliver your EPC within 24 hours of the assessment — often the same day. The certificate is emailed directly to you and simultaneously lodged on the Government's national EPC register, making it immediately verifiable by estate agents, letting agents, and buyers.",
+    a: "In the vast majority of cases we deliver your EPC within 24 hours of the assessment — often the same day. Occasionally it can take a little longer, for example where additional information about the property is required. The certificate is emailed directly to you and simultaneously lodged on the Government's national EPC register, making it immediately verifiable by estate agents, letting agents, and buyers.",
   },
   {
     q: "Do I need an EPC to sell or rent my property?",

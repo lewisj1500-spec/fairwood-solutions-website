@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <!-- Background -->
+  <rect width="320" height="80" fill="#030804"/>
+
+  <!-- Icon mark -->
+  <rect x="16" y="16" width="48" height="48" rx="11" fill="#00e676"/>
+  <path d="M26 43.5a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 35 39h8.75a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 34.75 43.5H26z" fill="#030804"/>
+
+  <!-- Wordmark -->
+  <text x="80" y="45" font-family="'Space Grotesk', 'Inter', Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.5" fill="#e8f5e9">Fairwood</text>
+  <text x="80" y="65" font-family="'Space Grotesk', 'Inter', Arial, sans-serif" font-size="13" font-weight="500" letter-spacing="2" fill="#00e676" text-transform="uppercase">SOLUTIONS</text>
+</svg>

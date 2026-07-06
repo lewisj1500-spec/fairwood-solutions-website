@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap');</style>
+    <radialGradient id="glow1" cx="80%" cy="15%" r="55%">
+      <stop offset="0%" stop-color="#00e676" stop-opacity="0.13"/>
+      <stop offset="100%" stop-color="#00e676" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="10%" cy="90%" r="45%">
+      <stop offset="0%" stop-color="#00bcd4" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#00bcd4" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#00e676" stroke-width="0.5" stroke-opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#030804"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="1198" height="628" stroke="#00e676" stroke-width="1" stroke-opacity="0.1" fill="none"/>
+
+  <!-- Left accent line -->
+  <rect x="80" y="155" width="3" height="320" rx="2" fill="#00e676" opacity="0.25"/>
+
+  <!-- ── LOGO ROW (icon + "Fairwood Solutions" on one line) ── -->
+  <!-- Icon: 96×96, vertically centred with text -->
+  <rect x="110" y="160" width="96" height="96" rx="22" fill="#00e676"/>
+  <svg x="134" y="184" width="48" height="48" viewBox="0 0 24 24">
+    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" fill="#030804"/>
+  </svg>
+
+  <!-- "Fairwood Solutions" — single line, baseline centred with icon -->
+  <text x="228" y="222" font-family="'Space Grotesk', Arial, sans-serif" font-size="60" font-weight="700" letter-spacing="-1.5">
+    <tspan fill="#e8f5e9">Fairwood </tspan><tspan fill="#00e676">Solutions</tspan>
+  </text>
+
+  <!-- Divider -->
+  <rect x="110" y="282" width="1000" height="1" fill="#00e676" opacity="0.1"/>
+
+  <!-- ── TAGLINE ── -->
+  <text x="110" y="330" font-family="'Space Grotesk', Arial, sans-serif" font-size="26" font-weight="500" fill="#81c784" letter-spacing="-0.2">Government-Accredited EPC Assessors · Wales &amp; the South West</text>
+
+  <!-- ── SERVICES ── -->
+  <!-- Service pill 1: Domestic EPC -->
+  <rect x="110" y="358" width="168" height="38" rx="19" fill="#00e676" fill-opacity="0.08" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="194" y="382" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.3" fill="#00e676">Domestic EPC</text>
+
+  <!-- Service pill 2: Commercial EPC -->
+  <rect x="290" y="358" width="182" height="38" rx="19" fill="#00e676" fill-opacity="0.08" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="381" y="382" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.3" fill="#00e676">Commercial EPC</text>
+
+  <!-- Service pill 3: SAP Calculations -->
+  <rect x="484" y="358" width="190" height="38" rx="19" fill="#00e676" fill-opacity="0.08" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="579" y="382" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.3" fill="#00e676">SAP Calculations</text>
+
+  <!-- Service pill 4: MEES Compliance -->
+  <rect x="686" y="358" width="192" height="38" rx="19" fill="#00e676" fill-opacity="0.08" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="782" y="382" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.3" fill="#00e676">MEES Compliance</text>
+
+  <!-- Service pill 5: Air Tightness Testing -->
+  <rect x="890" y="358" width="220" height="38" rx="19" fill="#00e676" fill-opacity="0.08" stroke="#00e676" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="1000" y="382" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="0.3" fill="#00e676">Air Tightness Testing</text>
+
+  <!-- ── STATS ROW ── -->
+  <text x="110" y="458" font-family="'Space Grotesk', Arial, sans-serif" font-size="44" font-weight="700" fill="#00e676" letter-spacing="-1">24hr</text>
+  <text x="110" y="488" font-family="'Space Grotesk', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2.5" fill="#4a7a4d">TURNAROUND</text>
+
+  <rect x="268" y="435" width="1" height="58" fill="#00e676" opacity="0.12"/>
+
+  <text x="292" y="458" font-family="'Space Grotesk', Arial, sans-serif" font-size="44" font-weight="700" fill="#00e676" letter-spacing="-1">98%</text>
+  <text x="292" y="488" font-family="'Space Grotesk', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2.5" fill="#4a7a4d">SATISFACTION</text>
+
+  <rect x="460" y="435" width="1" height="58" fill="#00e676" opacity="0.12"/>
+
+  <text x="484" y="458" font-family="'Space Grotesk', Arial, sans-serif" font-size="44" font-weight="700" fill="#00e676" letter-spacing="-1">20+</text>
+  <text x="484" y="488" font-family="'Space Grotesk', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2.5" fill="#4a7a4d">YRS EXPERIENCE</text>
+
+  <!-- Divider -->
+  <rect x="110" y="515" width="1000" height="1" fill="#00e676" opacity="0.08"/>
+
+  <!-- Domain + phone -->
+  <text x="110" y="562" font-family="'Space Grotesk', Arial, sans-serif" font-size="18" font-weight="500" fill="#4a7a4d" letter-spacing="0.3">fairwoodsolutions.com  ·  +44 1267 241 291</text>
+
+  <!-- Accredited badge — bottom right -->
+  <rect x="920" y="540" width="270" height="40" rx="20" fill="#00e676" fill-opacity="0.07" stroke="#00e676" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="1055" y="565" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="1.5" fill="#00e676">✓  GOVERNMENT ACCREDITED</text>
+</svg>

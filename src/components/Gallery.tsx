@@ -28,7 +28,9 @@ export default function Gallery() {
             Properties We <span className="text-primary">Survey</span>
           </h2>
           <p className="section-sub mx-auto text-center">
-            Scroll to explore — from historic Welsh farmhouses to modern developments.
+            <span className="hidden sm:inline">Scroll to explore — from</span>
+            <span className="sm:hidden">From</span>
+            {" "}historic Welsh farmhouses to modern developments.
           </p>
         </motion.div>
       </div>

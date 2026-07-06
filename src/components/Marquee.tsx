@@ -7,7 +7,7 @@ const ITEMS = [
   "New Build EPCs",
   "Retrofit Advice",
   "Accredited Assessors",
-  "24hr Turnaround",
+  "Typically 24hr Turnaround",
   "Government Registered",
   "Wales & South West",
   "Net Zero Ready",
